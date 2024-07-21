@@ -1,0 +1,78 @@
+<div th:fragment="script">
+    <script th:src="@{https://code.jquery.com/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/lib/easing/easing.min.js}"></script>
+    <script th:src="@{/lib/owlcarousel/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.SelectColor').change(function () {
+                var selectedColor = $(this).val();
+                localStorage.setItem('selectedColor', selectedColor);
+                $.ajax({
+                    url: `/detail/countByColor/${$(this).attr("data-productId")}`,
+                    type: 'GET',
+                    data: {
+                        color: selectedColor
+                    },
+                    success: function (data) {
+                        if (data > 0) {
+                            $('#count').html('Kho: '+data);
+                        } else {
+                            $('#count').html('Sản phẩm đã hết hàng');
+                        }
+                    }
+                })
+            });
+
+            $('.SelectSize').change(function () {
+                var selectedSize = $(this).val();
+                localStorage.setItem('selectedSize', selectedSize);
+                $.ajax({
+                    url: `/detail/countBySize/${$(this).attr("data-productId")}`,
+                    type: 'GET',
+                    data: {
+                        size: selectedSize
+                    },
+                    success: function (data) {
+                        if (data > 0) {
+                            $('#count').html('Kho: '+data);
+                        } else {
+                            $('#count').html('Sản phẩm đã hết hàng');
+                        }
+                    }
+                })
+            });
+
+            $('.SelectColor ').change(function () {
+                $('.SelectSize')
+            })
+
+            $('.SelectSize').change(function () {
+                var selectedSize = $(this).val();
+                var selectedColor = $('.SelectColor:checked').val();
+                if (selectedColor){
+                    $.ajax({
+                        url: `/detail/countByColorAndSize/${$(this).attr("data-productId")}`,
+                        type: 'GET',
+                        data: {
+                            size: selectedSize,
+                            color: selectedColor
+                        },
+                        success: function (data) {
+                            if (data > 0) {
+                                $('#count').html('Kho: ' + data);
+                                $('#btnAddCart').attr('disabled', false);
+                            } else if (data <= 0) {
+                                $('#btnAddCart').attr('disabled', true);
+                                $('#count').html('Sản phẩm đã hết hàng');
+                            }
+                        }
+                    })
+                }
+            })
+        });
+
+    </script>
+</div>

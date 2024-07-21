@@ -1,0 +1,107 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="detailProductManagement">
+    <div class="row">
+        <div class="control-panel">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <form style="width: 300px;" class="d-flex">
+                        <input class="form-control me-2" type="search" name="keyword" placeholder="Search">
+                        <button type="submit" class="btn btn-outline-success">Search</button>
+                    </form>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Create Detail Product
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="width: 800px; margin: 0 auto; height: auto;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/admin/detail-product/add}" class="was-validated">
+                                        <div class="mb-3">
+                                            <label class="form-label">Sản phẩm</label>
+                                            <select class="form-select" name="product" id="product" required>
+                                                <option th:each="prod : ${ListProduct}" th:value="${prod.idProduct}" th:text="${prod.nameProduct}"></option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Size</label>
+                                            <select class="form-select" name="size" required>
+                                                <option selected value="S">S</option>
+                                                <option value="M">M</option>
+                                                <option value="L">L</option>
+                                                <option value="XL">XL</option>
+                                                <option value="2XL">2XL</option>
+                                                <option value="3XL">3XL</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Màu</label>
+                                            <select class="form-select" name="color" required>
+                                                <option selected value="Đen">Đen</option>
+                                                <option value="Trắng">Trắng</option>
+                                                <option value="Xanh Navy">Xanh Navy</option>
+                                                <option value="Đỏ">Đỏ</option>
+                                                <option value="Vàng">Vàng</option>
+                                                <option value="Hồng">Hồng</option>
+                                                <option value="Xanh Lá">Xanh Lá</option>
+                                                <option value="Xám">Xám</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Số lượng sản phẩm</label>
+                                            <input class="form-control" value="1" type="number" min="1" name="quantity" required>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-outline-success btn-lg">Create</button>
+                                            <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="overflow: auto; height: 600px !important;">
+                    <div class="row">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name Product</th>
+                            <th scope="col">Size</th>
+                            <th scope="col">Color</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Tác vụ</th>
+                            </thead>
+                            <tbody>
+                            <tr class="col-auto" th:each="prod : ${ListDetailProduct}">
+                                <td><input type="checkbox"></td>
+                                <td th:text="${prod.idDetailProduct}"></td>
+                                <td th:text="${prod.product.nameProduct}"></td>
+                                <td th:text="${prod.size}"></td>
+                                <td th:text="${prod.color}"></td>
+                                <td th:text="${prod.quantity}"></td>
+                                <td style="width: 120px">
+                                    <a th:data-detailProd="${prod.idDetailProduct}" class="btn btn-danger btn-sm btn-deleteDP">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

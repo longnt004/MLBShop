@@ -1,0 +1,53 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="orderManagement">
+    <div class="row">
+        <div class="control-panel">
+            <div class="card">
+                <div class="card-header d-flex">
+                   <div class="flex-grow-1">
+                       <form style="width: 300px;" class="d-flex">
+                           <input class="form-control me-2" type="search" name="keyword" placeholder="Search">
+                           <button type="submit" class="btn btn-outline-success">Search</button>
+                       </form>
+                   </div>
+                    <button type="button" id="btnMultiDelOrder" class="btn btn-outline-danger m-1 btn-sm"><i class="fas fa-remove"></i> Cancel Order</button>
+                    <a th:href="@{/admin/order/exportExcel}" class="btn btn-outline-success m-1 btn-sm"><i class="fa-solid fa-file-export"></i> Export</a>
+                </div>
+
+                <div class="card-body" style="overflow: auto; height: 600px !important;">
+                    <div class="row">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Name Customer</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Payment Type</th>
+                            <th scope="col">Tác vụ</th>
+                            </thead>
+                            <tbody>
+                            <tr class="col-auto" th:each="order : ${ListOrder}">
+                                <td><input class="multiDelOrder" th:data-OrderId="${order.idOrder}" type="checkbox"></td>
+                                <td th:text="${order.idOrder}"></td>
+                                <td th:text="${order.paymentStatus}"></td>
+                                <td th:text="${order.user.fullname}"></td>
+                                <td th:text="${order.user.address}"></td>
+                                <td th:text="${order.user.phoneNumber}"></td>
+                                <td th:text="${order.orderDate}"></td>
+                                <td th:text="${order.paymentTypes}"></td>
+                                <td style="width: 120px">
+                                    <a th:data-detailProd="${order.idOrder}" class="btn btn-danger btn-sm btn-delOrder">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

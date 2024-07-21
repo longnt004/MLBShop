@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+<!-- Topbar Start -->
+<div th:replace="fragments/topbar :: topbar"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!-- Navbar End -->
+
+
+<!-- View Start -->
+    <div class="container text-center">
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <h1 th:text="${status}"></h1>
+                <p class="lead">Cảm ơn bạn đã mua hàng!</p>
+            </div>
+        </div>
+
+        <div class="row mt-3 justify-content-center">
+            <div class="col-md-6 text-center">
+                <h2>Thông tin đơn hàng</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Thuộc tính</th>
+                        <th>Giá trị</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Mã đơn hàng</td>
+                        <td th:text="${bankCode}"></td>
+                    </tr>
+                    <tr>
+                        <td>Tên khách hàng</td>
+                        <td>Nguyễn Văn A</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>nguyenvana@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại</td>
+                        <td>0912345678</td>
+                    </tr>
+                    <tr>
+                        <td>Tổng thanh toán</td>
+                        <td th:text="${#numbers.formatDecimal(amount, 0, 'COMMA', 0, 'POINT')+' VND'}"></td>
+                    </tr>
+                    <tr>
+                        <td>Phương thức thanh toán</td>
+                        <td>Chuyển khoản ngân hàng</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12 text-center">
+                <a href="/" class="btn btn-primary">Tiếp tục mua sắm</a>
+            </div>
+        </div>
+    </div>
+<!-- View End -->
+
+
+<!-- Footer Start -->
+<div th:replace="fragments/footer :: footer"></div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<div th:replace="fragments/script :: script"></div>
+
+</body>
+
+</html>

@@ -1,0 +1,125 @@
+<div th:fragment="catalogueManagement">
+    <div class="row">
+        <div class="control-panel">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <form style="width: 300px;" class="d-flex">
+                        <input class="form-control me-2" type="search" placeholder="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal"><i class="fas fa-plus"></i> New
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="width: 800px; margin: 0 auto; height: auto;">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form th:action="@{/admin/catalogue/add}" class="was-validated">
+                                        <div class="mb-3">
+                                            <label class="form-label">Tên danh mục</label>
+                                            <input class="form-control" type="text" name="nameCatalogue"
+                                                   placeholder="Vui lòng nhập tên danh mục" required>
+                                            <div class="invalid-feedback">
+                                                Tên dnah mục không được để trống.
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Ảnh danh mục</label>
+                                            <input type="file" class="form-control" name="imgCatalogue" required>
+                                            <div class="invalid-feedback">Chưa chọn danh mục
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body" style="overflow: auto; height: 600px !important;">
+                    <div class="row">
+                        <table class="table table-bordered text-center">
+                            <thead>
+                            <th scope="col"></th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name Catalogue</th>
+                            <th scope="col">Quantity Products</th>
+                            <th scope="col">Tác vụ</th>
+                            </thead>
+                            <tbody>
+                            <tr class="col-auto" th:each="cat : ${ListCataloque}">
+                                <td><input type="checkbox"></td>
+                                <td th:text="${cat.IdCatalogue}"></td>
+                                <td><img th:src="@{'/img/'+${cat.imgCatalogue}}" width="50px"></td>
+                                <td th:text="${cat.nameCatalogue}"></td>
+                                <td th:text="${cat.quantity}"></td>
+                                <td>
+                                    <a type="button" th:data-catalogue="${cat.IdCatalogue}" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-primary btn-editCata">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+
+                                    <a id="deteleCata" th:data-catalogue="${cat.IdCatalogue}" class="btn btn-danger btn-deleteCata">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop"
+                             data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Sửa
+                                            thông tin sản phẩm</h5>
+                                        <button type="button" class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        <form id="updateCatalogue" class="was-validated">
+                                            <div class="mb-3">
+                                                <label class="form-label">Tên danh mục</label>
+                                                <input class="form-control" type="text" name="nameCatalogue"
+                                                       placeholder="Vui lòng nhập tên danh mục" >
+                                                <div class="invalid-feedback">
+                                                    Tên dnah mục không được để trống.
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Ảnh danh mục</label>
+                                                <input type="file" class="form-control" name="imgCatalogue" >
+                                                <div class="invalid-feedback">Chưa chọn danh mục
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

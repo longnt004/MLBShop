@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>MLB Shop</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{=/vendor/animate/animate.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{=/vendor/css-hamburgers/hamburgers.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{=/vendor/animsition/css/animsition.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{=/vendor/select2/select2.min.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{=/vendor/daterangepicker/daterangepicker.css}">
+  <!--===============================================================================================-->
+  <link rel="stylesheet" th:href="@{/css/utils.css}">
+  <link rel="stylesheet" th:href="@{/css/login.css}">
+  <!--===============================================================================================-->
+</head>
+<body>
+
+<div class="limiter">
+  <div class="container-login100" style="background-image: url(/img/main-banner.jpg);">
+    <div class="wrap-login100 p-l-110    p-r-110 p-t-62 p-b-33">
+      <form th:action="@{'/singUp/register/'+${idUser}}" method="post" class="login100-form validate-form flex-sb flex-w">
+        <span class="login100-form-title ">Verify Account</span>
+        <p th:text="${messageVerify}"></p>
+        <div class="wrap-input100 validate-input d-flex m-t-17" data-validate="Password is required">
+          <input class="input100 flex-grow-1" type="text" name="verifyCode" placeholder="Enter the Verify code">
+          <span class="focus-input100"></span>
+          <a th:href="@{'/singUp/register/resendCode/'+${idUser}}" class="login100-form-btn" style="width: 200px;">Resend code</a>
+        </div>
+
+        <div class="container-login100-form-btn m-t-17">
+          <button type="submit" class="login100-form-btn">Verify</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+<script th:src="@{/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/animsition/js/animsition.min.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/bootstrap/js/popper.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/select2/select2.min.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/daterangepicker/moment.min.js}"></script>
+<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/vendor/countdowntime/countdowntime.js}"></script>
+<!--===============================================================================================-->
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+ <div class="container-fluid pt-4 px-4" th:fragment="dashboard">
+    <div class="row g-4">
+      <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+          <i class="fa fa-chart-line fa-3x text-primary"></i>
+          <div class="ms-3">
+            <p class="mb-2">Revenue Today</p>
+            <h6 class="mb-0">$1234</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+          <i class="fa fa-chart-bar fa-3x text-primary"></i>
+          <div class="ms-3">
+            <p class="mb-2">Monthly Revenue</p>
+            <h6 class="mb-0">$12344</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+          <i class="fa fa-chart-area fa-3x text-primary"></i>
+          <div class="ms-3">
+            <p class="mb-2">Annual Revenue</p>
+            <h6 class="mb-0">$99090</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6 col-xl-3">
+        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+          <i class="fa fa-chart-pie fa-3x text-primary"></i>
+          <div class="ms-3">
+            <p class="mb-2">Total Revenue</p>
+            <h6 class="mb-0">$123124124</h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4 ">
+          <i class="fa-solid fa-ticket mt-3 mb-2"></i>
+          <span class="mb-2">New Order</span>
+          <span class="mb-3 badge bg-primary">12</span>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4">
+          <i class="fa-solid fa-bars mt-3 mb-2"></i>
+          <span class="mb-2">All Order</span>
+          <span class="mb-3 badge bg-info" th:text="${countOrder}"></span>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4">
+          <i class="fa-solid fa-square-check mt-3 mb-2"></i>
+          <span class="mb-2">Approved Order</span>
+          <span class="mb-3 badge bg-success" th:text="${countOrderSuccess}"></span>
+        </div>
+      </div>
+      <div class="col-4 mt-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4">
+          <i class="fa-solid fa-x mt-3 mb-2"></i>
+          <span class="mb-2">Cancelled Order</span>
+          <span class="mb-3 badge bg-danger" th:text="${countOrderCancel}"></span>
+        </div>
+      </div>
+      <div class="col-4 mt-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4">
+          <i class="fa-solid fa-user mt-3 mb-2"></i>
+          <span class="mb-2">Product</span>
+          <span class="mb-3 badge bg-secondary" th:text="${countProduct}"></span>
+        </div>
+      </div>
+      <div class="col-4 mt-4">
+        <div class="card text-center bg-light rounded-top border-0 fs-4">
+          <i class="fa-solid fa-chart-line mt-3 mb-2"></i>
+          <span class="mb-2">Catalogue</span>
+          <span class="mb-3 badge bg-warning" th:text="${countCategory}"></span>
+        </div>
+      </div>
+    </div>
+ </div>
+<!-- Sale & Revenue End -->

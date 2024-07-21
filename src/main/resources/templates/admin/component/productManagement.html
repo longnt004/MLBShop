@@ -1,0 +1,164 @@
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="productManagement">
+      <div class="row">
+        <div class="control-panel">
+          <div class="card">
+            <div class="card-header d-flex">
+              <div class="flex-grow-1">
+                <form style="width: 700px;" class="d-flex">
+                  <input class="form-control me-2" type="search" name="keyword" placeholder="Search">
+                  <button type="submit" class="btn btn-outline-success">Search</button>
+                </form>
+              </div>
+              <button type="button" id="btnMultiSet" class="btn btn-outline-primary m-1 btn-sm"><i class="fas fa-power-off"></i> Active Product
+              </button>
+              <button type="button" id="btnMultiDel" class="btn btn-outline-danger m-1 btn-sm"><i class="fas fa-recycle"></i> Delete Product
+              </button>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-success m-1 btn-sm" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Create Product
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="exampleModal" tabindex="-1"
+                   aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content" style="width: 800px; margin: 0 auto; height: auto;">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Thêm sản phẩm</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"
+                              aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form th:action="@{/admin/product/add}" enctype="multipart/form-data" method="post" class="was-validated">
+                        <div class="mb-3">
+                          <label class="form-label">Tên sản phẩm</label>
+                          <input class="form-control" type="text" name="newNameProduct"
+                                 placeholder="Vui lòng nhập tên sản phẩm" required>
+                          <div class="invalid-feedback">Tên sản phẩm không được để trống.</div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Giá niêm yết</label>
+                          <input class="form-control" type="number" name="newPrice"
+                                 placeholder="Vui lòng nhập giá niêm yết" required>
+                          <div class="invalid-feedback">Giá niêm yết không được để trống</div>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label">Loại sản phẩm</label>
+                          <select class="form-select" name="newCatalogue" required>
+                            <option th:each="cat : ${ListCataloque}" th:value="${cat.IdCatalogue}" th:text="${cat.nameCatalogue}"></option>
+                          </select>
+                          <div class="invalid-feedback">Vui lòng chọn màu sản phẩm</div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Ảnh slide sản phẩm</label>
+                          <input type="file" class="form-control" multiple name="newImgSlide" required >
+                          <div class="invalid-feedback">Chưa chọn Ảnh slide sản phẩm</div>
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label">Mô tả</label>
+                          <textarea class="form-control" rows="2" cols="10" name="newDescribe" required></textarea>
+                          <div class="invalid-feedback">Chưa nhập mô tả sản phẩm</div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-outline-success btn-lg">Create</button>
+                          <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body" style="overflow: auto; height: 600px !important;">
+              <div class="row">
+                <table class="table table-bordered text-center">
+                  <thead>
+                  <th scope="col"></th>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name Product</th>
+                  <th scope="col">Product Type</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Tác vụ</th>
+                  </thead>
+                  <tbody>
+                  <tr th:each="prod : ${ListProduct}" class="classProd" th:class="${prod.status ? 'bg-light' : 'bg-warning'}">
+                    <td><input th:object="${editProduct}" class="checkDel" th:data-productId="${prod.idProduct}" type="checkbox"></td>
+                    <td th:text="${prod.idProduct}"></td>
+                    <td th:text="${prod.nameProduct}"></td>
+                    <td th:each="catalogue : ${prod.catalogues}" th:text="${catalogue.nameCatalogue}"></td>
+                    <td th:text="${#numbers.formatDecimal(prod.price, 0, 'COMMA', 0, 'POINT')+' VND'}"></td>
+                    <td>
+                        <img th:src="@{'/img/'+${prod.image}}" style="width: 50px; height: 50px;">
+                    </td>
+                    <td style="width: 120px">
+                      <a data-bs-toggle="modal" th:data-productId="${prod.idProduct}" data-bs-target="#staticBackdrop2" class="btn btn-primary btn-sm btn-edit">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <a class="btn btn-danger btn-sm btn-delete" th:data-productId="${prod.idProduct}">
+                        <i class="fas fa-trash-alt"></i>
+                      </a>
+
+                    </td>
+                  </tr>
+
+                  <!-- Modal Edit-->
+                  <div class="modal fade" id="staticBackdrop2"
+                       data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                       aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="staticBackdropLabel2">Sửa
+                            thông tin sản phẩm</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-start">
+                            <form id="editProduct" th:object="${editProduct}" class="was-validated">
+                            <div class="mb-3">
+                              <label class="form-label">Tên sản phẩm</label>
+                              <input class="form-control" type="text" name="nameProduct"
+                                     placeholder="Vui lòng nhập tên sản phẩm">
+                              <div class="invalid-feedback">Tên sản phẩm không được để trống.</div>
+                            </div>
+
+                            <div class="mb-3">
+                              <label class="form-label">Giá niêm yết</label>
+                              <input class="form-control" type="number" name="price"
+                                     placeholder="Vui lòng nhập giá niêm yết" >
+                              <div class="invalid-feedback">Giá niêm yết không được để trống</div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Loại sản phẩm</label>
+                              <select class="form-select" name="catalogue">
+                                <option th:id="${cat.nameCatalogue}" th:each="cat : ${ListCataloque}" th:value="${cat.IdCatalogue}"
+                                        th:text="${cat.nameCatalogue}"></option>
+                              </select>
+                              <div class="invalid-feedback">Vui lòng chọn màu sản phẩm</div>
+                            </div>
+                            <div class="mb-3">
+                              <label class="form-label">Mô tả</label>
+                              <textarea class="form-control" rows="2" cols="10" name="describe" ></textarea>
+                              <div class="invalid-feedback">Chưa nhập mô tả sản phẩm</div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-outline-success btn-lg">Update</button>
+                              <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-dismiss="modal">Close</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

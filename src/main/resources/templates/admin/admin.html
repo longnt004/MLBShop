@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<head th:replace="admin/component/head :: head">
+
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div th:replace="admin/component/navbar :: navbar"></div>
+        <div class="col py-3" th:if="${view.equals('view00')}">
+            <div th:replace="admin/component/dashboard :: dashboard"></div>
+        </div>
+        <div class="col py-3" th:if="${view.equals('view01')}">
+            <div th:replace="admin/component/productManagement :: productManagement"></div>
+        </div>
+        <div class="col py-3" th:if="${view.equals('view02')}">
+            <div th:replace="admin/component/catalogueManagement :: catalogueManagement"></div>
+        </div>
+        <div class="col py-3" th:if="${view.equals('view03')}">
+            <div th:replace="admin/component/detailProductManagement :: detailProductManagement"></div>
+        </div>
+        <div class="col py-3" th:if="${view.equals('view04')}">
+            <div th:replace="admin/component/orderManagement :: orderManagement"></div>
+        </div>
+
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@3.0.1/dist/js/multi-select-tag.js"></script>
+<script>
+    $('.btn-edit').on('click', function () {
+        $.get(`/crud-product/${$(this).attr("data-productId")}`, function(data, status){
+            const {idProduct, nameProduct, describe, catalogues} = data;
+            Object.keys(data).forEach(key => {
+                const $formController = $(`[name=${key}]`);
+                if($formController.prop('tagName') === 'TEXTAREA'){
+                    $formController.text(data[key]);
+                } else if($formController.prop('tagName') === 'SELECT') {
+                    let $options = $formController.children(`option:contains(${data[key].nameCatalogue})`);
+                    $options.attr('selected', 'selected')
+                }  else {
+                    $formController.attr('value', data[key]);
+                }
+            });
+            $('#editProduct').attr('action', `/admin/product/update/${idProduct}`);
+        });
+    })
+
+    $('.btn-delete').on('click', function () {
+        $.get(`/crud-product/${$(this).attr("data-productId")}`, function(data, status){
+            const {idProduct} = data;
+            if (confirm(`Are you sure you want to delete ${data.nameProduct}`)) {
+                $.ajax({
+                    success: function () {
+                        window.location.href = `/admin/product/delete/${idProduct}`;
+                        alert('Delete success!')
+                    },
+                });
+            }
+        });
+    })
+
+    $('.checkDel').click(function () {
+        if ($(this).prop('checked')) {
+        }
+        const listId = [];
+        $('.checkDel').each(function () {
+            if ($(this).prop('checked')) {
+                listId.push($(this).attr('data-productId'));
+            }
+            return listId;
+        });
+        $('#btnMultiDel').on('click', function () {
+            $.ajax({
+                url: `/admin/product/deleteMulti`,
+                type: 'GET',
+                data: {
+                    listId: listId
+                },
+                success: function () {
+                    window.location.href = `/admin/product`;
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+
+
+    $('.checkDel').click(function () {
+        const listId = [];
+        $('.checkDel').each(function () {
+            if ($(this).prop('checked')) {
+                listId.push($(this).attr('data-productId'));
+            }
+            return listId;
+        });
+        $('#btnMultiSet').on('click', function () {
+            $.ajax({
+                url: `/admin/product/activeMulti`,
+                type: 'GET',
+                data: {
+                    listId: listId
+                },
+                success: function () {
+                    window.location.href = `/admin/product`;
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+
+    $('.btn-editCata').on('click', function () {
+        $('#updateCatalogue').attr('action', `/admin/catalogue/update/${$(this).attr("data-catalogue")}`);
+    })
+
+    $('.btn-deleteCata').on('click', function () {
+        const idCatalogue = $(this).attr("data-catalogue");
+        if (confirm(`Are you sure you want to delete ${idCatalogue}`)) {
+            $.ajax({
+                success: function () {
+                    window.location.href = `/admin/catalogue/delete/${idCatalogue}`;
+                    alert('Delete success!')
+                },
+            });
+        }
+    })
+
+    $('.btn-deleteDP').on('click', function () {
+        const idDetailProduct = $(this).attr("data-detailProd");
+        if (confirm(`Are you sure you want to delete ${idDetailProduct}`)) {
+            $.ajax({
+                success: function () {
+                    window.location.href = `/admin/detail-product/delete/${idDetailProduct}`;
+                    alert('Delete success!')
+                },
+            });
+        }
+    })
+
+    $('.btn-delOrder').on('click', function () {
+        const idOrder = $(this).attr("data-detailProd");
+        if (confirm(`Are you sure you want to delete ${idOrder}`)) {
+            $.ajax({
+                success: function () {
+                    window.location.href = `/admin/order/delete/${idOrder}`;
+                    alert('Delete success!')
+                },
+            });
+        }
+    })
+
+    $('.multiDelOrder').click(function () {
+        const listId = [];
+        $('.multiDelOrder').each(function () {
+            if ($(this).prop('checked')) {
+                listId.push($(this).attr('data-OrderId'));
+            }
+            return listId;
+        });
+        $('#btnMultiDelOrder').on('click', function () {
+            $.ajax({
+                url: `/admin/order/deleteMulti`,
+                type: 'GET',
+                data: {
+                    listId: listId
+                },
+                success: function () {
+                    window.location.href = `/admin/order`;
+                },
+                error: function () {
+
+                }
+            });
+        })
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+
+<head th:replace="fragments/head :: head"></head>
+
+<body>
+<!-- Topbar Start -->
+<div th:replace="fragments/topbar :: topbar"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="fragments/navbar :: navbar"></div>
+<!-- Navbar End -->
+
+
+<!-- View Start -->
+<!-- Breadcrumb Start -->
+<div class="container-fluid">
+  <div class="row px-xl-5">
+    <div class="col-12">
+      <nav class="breadcrumb bg-light mb-30">
+        <a class="breadcrumb-item text-dark" href="#">Home</a>
+        <a class="breadcrumb-item text-dark" href="#">Shop</a>
+        <span class="breadcrumb-item active">Checkout</span>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- Breadcrumb End -->
+
+
+<!-- Checkout Start -->
+<div class="container-fluid">
+  <div class="row px-xl-5">
+    <div class="col-lg-8">
+      <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Billing Address</span></h5>
+      <div class="bg-light p-30 mb-5">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label>Full Name</label>
+            <span th:text="${user.fullname}" class="form-control" disabled ></span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label>E-mail</label>
+            <span th:text="${user.email}" class="form-control" disabled></span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label>Mobile No</label>
+            <span th:text="${user.phoneNumber}" disabled  class="form-control" ></span>
+          </div>
+          <div class="col-md-6 form-group">
+            <label>Address</label>
+            <span th:text="${user.address}" class="form-control" disabled ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
+      <div class="bg-light p-30 mb-5">
+        <div class="border-bottom" >
+          <div class="d-flex justify-content-between" th:each="prod : ${cart}">
+            <p th:text="${prod.detailProduct.product.nameProduct}"></p>
+            <p th:text="${prod.quantity}"></p>
+            <p th:text="${#numbers.formatDecimal(prod.amount, 0, 'COMMA', 0, 'POINT')+' VND'}"></p>
+          </div>
+        </div>
+        <div class="pt-2">
+          <div class="d-flex justify-content-between mt-2">
+            <h5>Total</h5>
+            <h5 th:text="${#numbers.formatDecimal(totalPrice, 0, 'COMMA', 0, 'POINT')+' VND'}"></h5>
+          </div>
+        </div>
+        <a th:href="@{/cart/payment/cod/order/confirm}" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Checkout End -->
+<!-- View End -->
+
+
+<!-- Footer Start -->
+<div th:replace="fragments/footer :: footer"></div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<div th:replace="fragments/script :: script"></div>
+
+</body>
+
+</html>

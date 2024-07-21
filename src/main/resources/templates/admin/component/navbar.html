@@ -1,0 +1,54 @@
+<div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark" th:fragment="navbar">
+  <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+    <a href="/admin"
+       class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none"><img
+            src="/img/MLB-Logo-01.webp" height="50px" width="90px" alt=""> Management
+    </a>
+    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+        id="menu">
+      <li class="nav-item">
+        <a href="/" class="nav-link align-middle px-0">
+          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Homepage</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/admin" class="nav-link align-middle px-0">
+          <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/product" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Products</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/detail-product" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Detail Product</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/category" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-speedometer2"></i> <span
+                class="ms-1 d-none d-sm-inline">Categories</span>
+        </a>
+      </li>
+      <li>
+        <a href="/admin/order" class="nav-link px-0 align-middle">
+          <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown pb-4">
+      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+         id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="/img/vendor-8.jpg" alt="hugenerd" width="30" height="30"
+             class="rounded-circle">
+        <span class="d-none d-sm-inline mx-1" th:text="${#authentication.getName()}"></span>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Personal Info</a></li>
+        <li><a type="submit" class="dropdown-item" th:href="@{/logout}">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
