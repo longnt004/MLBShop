@@ -27,13 +27,13 @@ public class HomeController {
         List<Product> productList = productService.findAll();
         model.addAttribute("productList", productList);
         model.addAttribute("cataList", cataList);
-        return "homepage";
+        return "index";
     }
 
     @RequestMapping("/homepage")
     public String homepage(Model model) {
 
-        return "homepage";
+        return "index";
     }
 
     @RequestMapping("/register")

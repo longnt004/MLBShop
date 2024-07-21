@@ -28,8 +28,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/cart/**","/payment-cod/**","/products/addtocart/**").authenticated()
+                        .requestMatchers("/**").permitAll()
                         .anyRequest().hasAuthority("ADMIN")
                 )
                 .formLogin((form) -> form
